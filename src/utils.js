@@ -87,10 +87,31 @@ const getStoryContentByWebsiteAndId = async (website, id) => {
     }
 };
 
+const searchStoryContentByWebsiteAndTag = async (website, tagName) => {
+    try {
+        const response = await axios.get(`https://${process.env.CONTENT_API_HOST}/search/published`, {
+            params: {
+                website: website,
+                q: `type:story AND taxonomy.tags.slug:${tagName}`,
+            },
+            headers: {
+                'Authorization': `Bearer ${process.env.PERSONAL_ACCESS_TOKEN}`
+            }
+        });
+        return response.data.content_elements.map(element =>
+            element.content_elements[0].content
+        );
+    } catch (error) {
+        console.error('Error searching story content by tag:', error);
+        throw error;
+    }
+};
+
 const speakerVoiceMapping = {
     // Mapping of speaker to voice provided by ElevenLabs
     "Marina": "Alice",
-    "Sascha": "Aria"
+    "Sascha": "Aria",
+    "Alex": "Bill",
 };
 
 const audioFilesDir = path.join(__dirname, '../audio-files');
@@ -196,6 +217,7 @@ function mergeAudios(audioFolder, outputFile) {
 module.exports = {
     generatePodcastScripts,
     getStoryContentByWebsiteAndId,
+    searchStoryContentByWebsiteAndTag,
     generateAudio,
     extractContent,
     mergeAudios

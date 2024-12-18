@@ -1,3 +1,4 @@
 {
-  "podcastHandler": ["story:first-publish", "story:update"]
+  "podcastHandler": ["story:first-publish", "story:update"],
+  "weeklyPodcastSummaryScheduler": ["custom:generate_summary"]
 }

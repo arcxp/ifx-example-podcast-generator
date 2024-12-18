@@ -1,7 +1,7 @@
-const defaultHandler = require('./eventsHandlers/defaultHandler');
 const podcastHandler = require('./eventsHandlers/podcastHandler');
+const weeklyPodcastSummaryScheduler = require('./eventsHandlers/weeklyPodcastSummaryScheduler');
 
 module.exports = {
-  defaultHandler,
   podcastHandler,
+  weeklyPodcastSummaryScheduler,
 }
